@@ -1,3 +1,9 @@
+const div = document.querySelector('#div');
+const pdiv = document.querySelector('#pdiv');
+const cdiv = document.querySelector('#cdiv');
+let p_win = 0;
+let c_win = 0;
+
 function getComputerChoice(){
     var moves = ['rock', 'paper', 'scissor'];
     const choice = moves[Math.floor(Math.random() * moves.length)];
@@ -11,47 +17,112 @@ function playRound(playerSelection,computerSelection){
     const playerChoice = playerSelection.toLowerCase();
     if (computerChoice == 'rock'){
         if (playerChoice == 'rock'){
-            return tie;
+            return 'tie';
         }
         else if (playerChoice == 'scissor'){
-            return lose;
+            return 'lose';
         }
         else {
-            return win;
+            return 'win';
         }
     }  
     if (computerChoice == 'scissor'){
         if (playerChoice == 'rock'){
-            return win;
+            return 'win';
         }
         else if (playerChoice == 'scissor'){
-            return tie;
+            return 'tie';
         }
         else {
-            return lose;
+            return 'lose';
         }
     } 
     if (computerChoice == 'paper'){
         if (playerChoice == 'rock'){
-            return lose;
+            return 'lose';
         }
         else if (playerChoice == 'scissor'){
-            return win;
+            return 'win';
         }
         else {
-            return tie;
+            return 'tie';
         }
     }   
 }
 
-function game(){
-    for (let i = 0; i < 5; i++) {
+function game(move){
+    
         const computerSelection = getComputerChoice();
-        let playerSelection = prompt ('select your move!');
-        console.log(playRound(playerSelection, computerSelection));
-
-     }
+        const playerSelection = move;
+        return playRound(playerSelection, computerSelection);
 }
 
-game();
+
+
+const rbtn = document.querySelector('#r');
+rbtn.addEventListener('click',() => {
+    result = game('rock');
+    console.log(result);
+    div.textContent = result;
+    if (result == "win"){
+        p_win +=1;
+    
+        pdiv.textContent = p_win;
+    }
+    if (result == "lose"){
+        c_win +=1;
+   
+        cdiv.textContent = c_win;
+    }
+    if (p_win >= 5){
+        div.textContent = "you win";
+    }
+    if (c_win >= 5){
+        div.textContent = "computer wins";
+    }
+});
+
+const pbtn = document.querySelector('#p');
+pbtn.addEventListener('click',() => {
+    result = game('paper');
+    div.textContent = result;
+    if (result == "win"){
+        p_win +=1;
+        pdiv.textContent = p_win;
+    }
+    if (result == "lose"){
+        c_win +=1;
+        cdiv.textContent = c_win;
+    }
+    if (p_win >= 5){
+        div.textContent = "you win";
+        
+    }
+    if (c_win >= 5){
+        div.textContent = "computer wins";
+    }
+});
+
+const sbtn = document.querySelector('#s');
+sbtn.addEventListener('click',() => {
+    result = game('scissor');
+    div.textContent = result;
+    if (result == "win"){
+        p_win +=1;
+        pdiv.textContent = p_win;
+    }
+    if (result == "lose"){
+        c_win +=1;
+        cdiv.textContent = c_win;
+    }
+    if (p_win >=5){
+        div.textContent = "you win";
+    }
+    if (c_win >=5){
+        div.textContent = "computer wins";
+    }
+});
+
+
+
 
